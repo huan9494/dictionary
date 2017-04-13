@@ -1,0 +1,31 @@
+
+<br>
+<br>
+   <div>
+        <% if @keyword %>
+        <% (0..4).each do |idx| %>
+            <img src="<%= @page_img.search("img")[idx].attribute("src").text %>" alt="pictures" >
+
+        <% end %>
+    <% end %>
+   </div>
+<br>
+<br>
+   <div>
+        <% @content1.each do |content1| %>
+        <div style="font-family: Arial; font-weight: bold">
+            <%= content1.search("h5 span.mw-headline").text %>
+        </div>
+        <% content1.search("dl dd dl dd").each do |subcontent1| %>
+                <% if subcontent1.search("a").any? %>
+                    <div style="padding-left: 30px; color: red; font-family: Arial">
+                        <%= subcontent1.text %>
+                    </div>
+                <% else %>
+                    <div style="padding-left: 30px; color: green; font-family: Arial">
+                        <%= subcontent1.text %>
+                    </div>
+                <% end %>
+        <% end %>
+    <% end %>
+   </div>
