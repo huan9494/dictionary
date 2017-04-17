@@ -4,7 +4,9 @@
    <div>
         <% if @keyword %>
         <% @translation.pictures.each do |url| %>
-            <img src= "<%= url %>" >
+            <% cache url do %>
+                <img src= "<%= url %>" >
+            <% end %>
         <% end %>
     <% end %>
    </div>
