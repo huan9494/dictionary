@@ -1,0 +1,36 @@
+
+<br>
+<br>
+   <div>
+        <% if @keyword %>
+        <% @translation.pictures.each do |url| %>
+            <img src= "<%= url %>" >
+        <% end %>
+    <% end %>
+   </div>
+<br>
+<br>
+   <div>
+        <% if @translation.discription.any? %>
+
+            <% @translation.discription.each do |translation| %>
+                <% if translation.keys.to_s == "[:black]" %>
+                    <div style="font-family: Arial; font-weight: bold; color: black;">
+                        <%= translation.values*",".to_s.gsub(/[!@%&"]/,'') %>
+                    </div>
+                <% elsif translation.keys.to_s == "[:red]" %>
+                    <div style="padding-left: 30px; color: red; font-family: Arial">
+                        <%= translation.values*",".to_s.gsub(/[!@%&"]/,'') %>
+                    </div>
+                <% else %>
+                    <div style="padding-left: 30px; color: green; font-family: Arial">
+                        <%= translation.values*",".to_s.gsub(/[!@%&"]/,'') %>
+                    </div>
+                <% end %>                
+            <% end %>
+        <% else %>
+            <div style="font-family: Arial; font-weight: bold; color: black;">
+                <b> NO DATA TO DISPLAY!</b>
+            </div>
+        <% end %>
+   </div>

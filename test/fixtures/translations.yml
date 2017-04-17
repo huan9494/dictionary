@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  keyword: MyString
+  discription: MyString
+  pictures: MyString
+  query_number: 1
+
+two:
+  keyword: MyString
+  discription: MyString
+  pictures: MyString
+  query_number: 1
