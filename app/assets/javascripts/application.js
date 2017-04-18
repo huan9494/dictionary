@@ -26,5 +26,6 @@ $(document).on('turbolinks:load', function(){
       limit: 10,
       remote: '/translations/auto_complete?query=%QUERY'
     });
+
 })
 
