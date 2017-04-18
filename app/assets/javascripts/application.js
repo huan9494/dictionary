@@ -12,7 +12,19 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require typeahead
 //= require turbolinks
 //= require jquery.turbolinks
 //= require bootstrap-sprockets
 //= require_tree .
+
+$(document).on('turbolinks:load', function(){
+	$("#translation_query").typeahead({
+      name: 'translation',
+      hint: false,
+      highlight: false,
+      limit: 10,
+      remote: '/translations/auto_complete?query=%QUERY'
+    });
+})
+

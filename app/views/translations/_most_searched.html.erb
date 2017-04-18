@@ -1,0 +1,9 @@
+<ul>
+<b>Most frequently searched: </b>
+<% @most_search = Translation.order(query_number: :desc).limit(5) %>
+      <% @most_search_keyword = [] %>
+      <% @most_search.each do |m| %>
+        <li><%= link_to m.keyword + "-" + m.query_number.to_s, translations_index_path(:query => m.keyword), remote: true, class: "most_searched" %></li>
+
+      <% end %>
+</ul>

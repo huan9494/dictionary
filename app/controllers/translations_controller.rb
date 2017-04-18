@@ -6,13 +6,15 @@ class TranslationsController < ApplicationController
 
   	@agent = Mechanize.new
 
-  	if params[:keyword_search]
-  		@keyword = params[:keyword_search].downcase.delete(' ').gsub(/[^a-z ]/,'')
+  	if params[:query]
+  		@keyword = params[:query].downcase.delete(' ').gsub(/[^a-z ]/,'')
+  		
+
   		
 
 	    if Translation.where(:keyword => @keyword).first
 	  		@translation = Translation.where(:keyword => @keyword).first
-	  		# @translation.update(query_number: @translation.query_number + 1)
+	  		@translation.update(query_number: @translation.query_number + 1)
 	  	else
 
 	  		#Search image on net--------------
@@ -66,21 +68,8 @@ class TranslationsController < ApplicationController
 
   end
 
-  def show
-  	@translation = Translation.find(params[:id])
+  def auto_complete
+  	render json: Translation.search(params[:query], limit: 10).map(&:keyword)
   end
 
-  def new
-  	@translation = Translation.new
-  end
-
-  def create
-  	@translation = Translation.new(translation_params)
-  	@translation.save
-  end
-
-  private
-  def translation_params
-  	Params.require(:translation).permit(:keyword, :discription, :pictures, :query_number)
-  end
 end

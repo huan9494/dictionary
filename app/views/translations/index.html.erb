@@ -1,22 +1,57 @@
-
-<br>
-<br>
-<div class=" col-md-8 col-md-offset-2">
-    <div class="row">
-        <div class="search">
-            <form action = "/translations/index" class="button_to" data-remote = "true" id="form_key">
-                <input type="text" name = "keyword_search" class="form-control input-sm" placeholder="Search" />
-                <button type="submit" class="btn btn-primary btn-sm">Search</button>
-            </form>
-        </div>
+<div class="carousel fade-carousel slide" data-ride="carousel" data-interval="4000" id="bs-carousel">
+  <div class="carousel-inner">
+    <div class="item slides active">
+      <div class="slide-1"></div>
+      <div class="hero">
+        <hgroup>
+            <h1>SMART DICTIONARY</h1>        
+            <h3>Makes everything easy</h3>
+        </hgroup>
+      </div>
     </div>
-    <br>
-    <br>
+  </div> 
+</div>
+
+
+<div id="most_searched">
+  <ul>
+  <b>Most frequently searched: </b>
+  <% @most_search = Translation.order(query_number: :desc).limit(5) %>
+        <% @most_search_keyword = [] %>
+        <% @most_search.each do |m| %>
+          <li><%= link_to m.keyword + "-" + m.query_number.to_s, translations_index_path(:query => m.keyword), remote: true, class: "most_searched" %></li>
+        <% end %>
+  </ul>
+</div>
+
+
+<div class="row">
+    <div class="search" style="margin: auto !important;">
+        <form action = "/translations/index" class="button_to" data-remote = "true" id="form_key">
+            <input type="text" name = "query" id="translation_query" class="form-control input-sm" placeholder="Search" autocomplete="off" />
+            <button type="submit" class="btn btn-primary btn-sm">Search</button>
+        </form>
+    </div>
+ </div>
+
+<div class=" col-md-8 col-md-offset-2">
+
 
     <div class="col-md-12">
         <%= image_tag("ajax-loader.gif", :id => "loading-indicator") %>
     </div>
 
+    
     <div id="new_dic" style="margin-top: 20px;"></div>
 
 </div>
+
+
+
+<footer class="navbar-fixed-bottom" >
+    <div class="panel panel-default" style="margin-bottom: 0px;">
+        <div class="panel-footer text-center" style="background-color: orange; color: black; ">
+            Copyrights 2017, All rights reserved
+        </div>
+    </div>
+</footer>
