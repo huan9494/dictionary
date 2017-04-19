@@ -27,5 +27,8 @@ $(document).on('turbolinks:load', function(){
       remote: '/translations/auto_complete?query=%QUERY'
     });
 
+    $(".tt-dropdown-menu").on("click", function(){
+    	$("form_key").submit();
+    });
 })
 
