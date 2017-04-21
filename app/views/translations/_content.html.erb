@@ -1,7 +1,7 @@
 
 <br>
 <br>
-   <div>
+   <div class="col-md-10 col-md-offset-2">
         <% if @keyword %>
             <% @translation.pictures.each do |url| %>
                 <img src= "<%= url %>" >           
@@ -10,7 +10,7 @@
    </div>
 <br>
 <br>
-   <div>
+   <div class="col-md-10 col-md-offset-2" style="margin-top: 10px;">
         <% if @translation.discription.any? %>
 
             <% @translation.discription.each do |translation| %>

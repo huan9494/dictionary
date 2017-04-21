@@ -1,3 +1,10 @@
-$("#new_dic").html("<%= escape_javascript(render 'content') %>");
+<%if @data_saved == true%>
+	$("#new_dic").html("<%= escape_javascript(render 'content') %>");
+<% end %>
+<%if @data_saved == false%>
+	$("#new_dic").html("<%= escape_javascript(render 'online_content') %>");
+	$("#translation_query").val("");
+<% end %>
+
 $("#most_searched").html("<%= escape_javascript(render 'most_searched') %>");
 $("#translation_query").val("");

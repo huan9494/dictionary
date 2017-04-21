@@ -15,9 +15,10 @@ class TranslationsController < ApplicationController
 	    if Translation.where(:keyword => @keyword).first
 	  		@translation = Translation.where(:keyword => @keyword).first
 	  		@translation.update(query_number: @translation.query_number + 1)
+	  		@data_saved = true
 	  	else
 
-	  		#Search image on net--------------
+	  		#Search data on net--------------
 		  		url = "http://tratu.soha.vn/dict/en_vn/" + @keyword
 			  	@page = @agent.get url
 
@@ -28,38 +29,28 @@ class TranslationsController < ApplicationController
 			      @content1 = @page.search("div#show-alter div#content-5")
 			    end
 
-			    @img_arr = []
+			    keyword = params[:query]
+			    img_arr = []
 			    (0..4).each do |idx|
-		        	@img_arr << @page_img.search("img")[idx].attribute("src").text
+		        	img_arr << @page_img.search("img")[idx].attribute("src").text
 		        end
 
-		        @discription_arr = []
+		        discription_arr = []
 		        @content1.each do |content1|
-            		@discription_arr << {black: content1.search("h5 span.mw-headline").text}
+            		discription_arr << {black: content1.search("h5 span.mw-headline").text}
         			content1.search("dl dd dl dd").each do |subcontent1|
 		                if subcontent1.search("a").any?
-		                        @discription_arr << {red: subcontent1.text}
+		                        discription_arr << {red: subcontent1.text}
 		                else
-		                        @discription_arr << {green: subcontent1.text}
+		                        discription_arr << {green: subcontent1.text}
 		                end
             		end
             	end
 
-	        #Search image on net--------------
+	        #Search data on net--------------
 
-	        #Save to database
-
-		  		@translation = Translation.new
-
-		  		@translation.keyword = @keyword
-		  		@translation.discription = @discription_arr
-		  		@translation.pictures = @img_arr
-		  		@translation.query_number = 1
-
-		  		@translation.save
-
-	  		#Save to database
-
+	        	@data_saved = false
+			    SaveDataJob.perform_later(keyword,discription_arr,img_arr)
 	  	end
 
 
